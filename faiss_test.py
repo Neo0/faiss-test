@@ -20,6 +20,7 @@ for nb in nb_list:
             result["dim"] = d
             result["nb"] = nb
             result["k"] = k
+            print(result)
             xb = np.random.random((nb, d)).astype('float32')
             xb[:, 0] += np.arange(nb) / 1000.
             xq = np.random.random((nq, d)).astype('float32')
@@ -126,6 +127,7 @@ for nb in nb_list:
             result["GPUs_HNSW_avg_spent"] = sum(spent) / 100
             result["GPUs_HNSW_max_spent"] = max(spent)
 
+            print(result)
             results.append(result)
 
 print(results)
