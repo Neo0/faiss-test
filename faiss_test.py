@@ -48,6 +48,38 @@ for nb in nb_list:
             result["IVF_avg_spent"] = sum(spent) / 100
             result["IVF_max_spent"] = max(spent)
 
+            # GPU single
+            res = faiss.StandardGpuResources()
+            gpu_index_flat = faiss.index_cpu_to_gpu(res, 0, index)
+            gpu_index_flat.add(xb)
+
+            spent = []
+            for i in range(100):
+                start = datetime.datetime.now()
+                D, I = index.gpu_index_flat(xq[:2], k)     # actual search
+                end = datetime.datetime.now()
+                s = end - start
+                spent.append(s.total_seconds())
+            result["GPU_IVF_avg_spent"] = sum(spent) / 100
+            result["GPU_IVF_max_spent"] = max(spent)
+
+            # multiple GPUs
+            ngpus = faiss.get_num_gpus()
+            gpu_index = faiss.index_cpu_to_all_gpus(index)
+            gpu_index.add(xb)
+
+            spent = []
+            for i in range(100):
+                start = datetime.datetime.now()
+                D, I = index.gpu_index_flat(xq[:2], k)     # actual search
+                end = datetime.datetime.now()
+                s = end - start
+                spent.append(s.total_seconds())
+            result["GPUs_IVF_avg_spent"] = sum(spent) / 100
+            result["GPUs_IVF_max_spent"] = max(spent)
+
+            results.append(result)
+
             index = faiss.IndexHNSWFlat(d, 32)
             index.hnsw.efConstruction = 40
             index.verbose = True
@@ -63,6 +95,36 @@ for nb in nb_list:
                 spent.append(s.total_seconds())
             result["HNSW_avg_spent"] = sum(spent) / 100
             result["HNSW_max_spent"] = max(spent)
+
+            # GPU single
+            res = faiss.StandardGpuResources()
+            gpu_index_flat = faiss.index_cpu_to_gpu(res, 0, index)
+            gpu_index_flat.add(xb)
+
+            spent = []
+            for i in range(100):
+                start = datetime.datetime.now()
+                D, I = index.gpu_index_flat(xq[:2], k)     # actual search
+                end = datetime.datetime.now()
+                s = end - start
+                spent.append(s.total_seconds())
+            result["GPU_HNSW_avg_spent"] = sum(spent) / 100
+            result["GPU_HNSW_max_spent"] = max(spent)
+
+            # multiple GPUs
+            ngpus = faiss.get_num_gpus()
+            gpu_index = faiss.index_cpu_to_all_gpus(index)
+            gpu_index.add(xb)
+
+            spent = []
+            for i in range(100):
+                start = datetime.datetime.now()
+                D, I = index.gpu_index_flat(xq[:2], k)     # actual search
+                end = datetime.datetime.now()
+                s = end - start
+                spent.append(s.total_seconds())
+            result["GPUs_HNSW_avg_spent"] = sum(spent) / 100
+            result["GPUs_HNSW_max_spent"] = max(spent)
 
             results.append(result)
 
