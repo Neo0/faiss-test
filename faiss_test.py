@@ -7,7 +7,7 @@ import datetime
 
 d_list = [32, 64, 128, 256, 512]                           # dimension
 nb_list = [100000, 1000000, 10000000, 100000000]                      # database size
-k_list = [200, 400, 600, 800, 1000, 1500, 2000, 2500, 3000]
+k_list = [200, 400, 600, 800, 1000]
 results = []
 
 nq = 10000                       # nb of queries
