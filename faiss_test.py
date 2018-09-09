@@ -56,7 +56,7 @@ for nb in nb_list:
             spent = []
             for i in range(100):
                 start = datetime.datetime.now()
-                D, I = index.gpu_index_flat(xq[:2], k)     # actual search
+                D, I = gpu_index_flat.search(xq[:2], k)     # actual search
                 end = datetime.datetime.now()
                 s = end - start
                 spent.append(s.total_seconds())
@@ -71,7 +71,7 @@ for nb in nb_list:
             spent = []
             for i in range(100):
                 start = datetime.datetime.now()
-                D, I = index.gpu_index_flat(xq[:2], k)     # actual search
+                D, I = gpu_index.search(xq[:2], k)     # actual search
                 end = datetime.datetime.now()
                 s = end - start
                 spent.append(s.total_seconds())
@@ -104,7 +104,7 @@ for nb in nb_list:
             spent = []
             for i in range(100):
                 start = datetime.datetime.now()
-                D, I = index.gpu_index_flat(xq[:2], k)     # actual search
+                D, I = gpu_index_flat.search(xq[:2], k)     # actual search
                 end = datetime.datetime.now()
                 s = end - start
                 spent.append(s.total_seconds())
@@ -119,7 +119,7 @@ for nb in nb_list:
             spent = []
             for i in range(100):
                 start = datetime.datetime.now()
-                D, I = index.gpu_index_flat(xq[:2], k)     # actual search
+                D, I = gpu_index.search(xq[:2], k)     # actual search
                 end = datetime.datetime.now()
                 s = end - start
                 spent.append(s.total_seconds())
